@@ -28,13 +28,19 @@ Wagtail is supported by a global community of developers and organizations that 
 ---
 
 ### **Where Wagtail is Used**
+
 Wagtail is used by small businesses, large corporations, and organizations such as:
+
+[ NASA’s Jet Propulsion Laboratory launches on Wagtail CMS ](https://torchbox.com/blog/nasa-jpl-launches-on-wagtail/)
+
 - NASA
 - Google
 - Mozilla
 - The Royal College of Art
 
 ---
+
+# `Wagtail CMS`
 
 Creating a blog website in Django with **Wagtail CMS** is an excellent choice because Wagtail provides a modern, flexible admin UI and powerful tools for managing content. Below is a step-by-step guide to create a **Django blog website** using Wagtail.
 
@@ -105,11 +111,10 @@ Creating a blog website in Django with **Wagtail CMS** is an excellent choice be
 Edit `blog/models.py` to define your blog page model:
 
 ```python
+from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
-from wagtail.images.models import Image
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 class BlogIndexPage(Page):
     """A page to list all blog posts."""
@@ -135,38 +140,13 @@ class BlogPostPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('body'),
-        ImageChooserPanel('featured_image'),
+        FieldPanel('featured_image'), 
     ]
 ```
 
 ---
 
-### **Step 5: Register the Models**
-
-Edit `blog/wagtail_hooks.py` (create this file if it doesn’t exist):
-
-```python
-from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
-from .models import BlogIndexPage, BlogPostPage
-
-class BlogPostAdmin(ModelAdmin):
-    model = BlogPostPage
-    menu_label = "Blog Posts"
-    menu_icon = "doc-full"
-    list_display = ("title", "date")
-    search_fields = ("title", "body")
-
-class BlogAdminGroup(ModelAdminGroup):
-    menu_label = "Blog"
-    menu_icon = "folder-open-inverse"
-    items = (BlogPostAdmin,)
-
-modeladmin_register(BlogAdminGroup)
-```
-
----
-
-### **Step 6: Create Templates**
+### **Step 5: Create Templates**
 
 Create `blog/templates/blog/blog_index_page.html` for the blog index page:
 
@@ -201,7 +181,7 @@ Create `blog/templates/blog/blog_post_page.html` for individual blog posts:
 
 ---
 
-### **Step 7: Configure URL Routing**
+### **Step 6: Configure URL Routing**
 
 Wagtail handles most of the routing for pages automatically. However, ensure your main `urls.py` includes Wagtail's URL handling:
 
@@ -224,7 +204,7 @@ urlpatterns = [
 
 ---
 
-### **Step 8: Add Pages in Wagtail Admin**
+### **Step 7: Add Pages in Wagtail Admin**
 
 1. Log in to the Wagtail admin (`http://127.0.0.1:8000/cms/`).
 2. Create a new **Blog Index Page** under the home page.
@@ -233,7 +213,7 @@ urlpatterns = [
 
 ---
 
-### **Step 9: View the Blog**
+### **Step 8: View the Blog**
 
 Visit the blog index page URL (e.g., `http://127.0.0.1:8000/blog/`) to see your blog posts listed. Click on any post to view its content.
 
