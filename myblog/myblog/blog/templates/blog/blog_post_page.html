@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.date }}</p>
+  {% if page.featured_image %}
+    <img src="{{ page.featured_image.get_rendition('fill-800x400').url }}" alt="{{ page.featured_image.title }}">
+  {% endif %}
+  <div>{{ page.body|richtext }}</div>
+{% endblock %}
+
