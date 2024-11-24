@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Hello World!</h1>
+  {% if page.subtitle %}
+    <h2>{{ page.subtitle }}</h2>
+  {% endif %}
+  <p>{{ message }}</p>
+{% endblock %}
